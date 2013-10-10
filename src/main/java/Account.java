@@ -2,6 +2,8 @@
  * @author JeongInn
  */
 public class Account {
+	private static final int FAMILY_DISCOUNT_BOUNDARY = 2;
+	
 	private Plan plan;
 	private int additionalLines;
 	
@@ -15,7 +17,11 @@ public class Account {
 		return plan.getBasicMonthlyRate();
 	}
 	public double getRateForAdditionalLines() {
-		return additionalLines * plan.getRatePerAdditionalLine();
+		if (additionalLines <= FAMILY_DISCOUNT_BOUNDARY) {
+			return additionalLines * plan.getRatePerAdditionalLine();
+		}
+
+		return FAMILY_DISCOUNT_BOUNDARY * plan.getRatePerAdditionalLine() + (additionalLines - FAMILY_DISCOUNT_BOUNDARY) * 5;
 	}
 	public double getRateForExcessMinutes(int usedMinutes) {
 		int excessMinutes = plan.getIncludedMinutes() - usedMinutes;

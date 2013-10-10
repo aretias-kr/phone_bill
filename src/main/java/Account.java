@@ -17,4 +17,11 @@ public class Account {
 	public double getRateForAdditionalLines() {
 		return additionalLines * plan.getRatePerAdditionalLine();
 	}
+	public double getRateForExcessMinutes(int usedMinutes) {
+		int excessMinutes = plan.getIncludedMinutes() - usedMinutes;
+		if (excessMinutes > 0) {
+			return plan.getRatePerExcessMinute() * excessMinutes;
+		}
+		return 0;
+	}
 }
